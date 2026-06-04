@@ -1,0 +1,41 @@
+<template>
+  <section class="sda-classes">
+    <div class="classes-inner">
+      <div class="section-header">
+        <div class="section-eyebrow">Our Programs</div>
+        <h2 class="section-title">Dance Styles We Teach</h2>
+        <p class="section-subtitle">
+          Explore diverse dance styles designed for beginners,
+          intermediate learners, and advanced performers.
+        </p>
+      </div>
+
+      <template lwc:if={classes.data}>
+        <div class="classes-grid">
+          <template for:each={classList} for:item="cls">
+            <div key={cls.Id} class="class-card">
+              <div class={cls.colorClass}>
+                <span class="card-style-label">{cls.Style__c}</span>
+              </div>
+              <div class="class-card-body">
+                <h3 class="class-card-title">{cls.Name}</h3>
+                <p class="class-card-meta">{cls.Day_of_Week__c} · {cls.Age_Group__c}</p>
+                <p class="class-card-desc">
+                  Structured classes focused on rhythm, expression, and stage confidence.
+                </p>
+                <div class="class-card-footer">
+                  <span class="class-fee">${cls.Fee__c}</span>
+                  <a href="/sda/enroll" class="class-enroll-link">Enroll →</a>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </template>
+
+      <template lwc:if={classes.error}>
+        <p class="error-msg">Unable to load classes right now. Please check back soon.</p>
+      </template>
+    </div>
+  </section>
+</template>

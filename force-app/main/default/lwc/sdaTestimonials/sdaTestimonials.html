@@ -1,0 +1,19 @@
+<template>
+  <section class="sda-testimonials">
+    <div class="testimonials-inner">
+      <div class="section-header">
+        <div class="section-eyebrow">Testimonials</div>
+        <h2 class="section-title">What Parents &amp; Students Say</h2>
+      </div>
+      <div class="test-grid">
+        <template for:each={reviews} for:item="review">
+          <div key={review.id} class="test-card">
+            <div class="test-quote">&ldquo;</div>
+            <p class="test-text">{review.quote}</p>
+            <div class="test-author">{review.author}</div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+</template>

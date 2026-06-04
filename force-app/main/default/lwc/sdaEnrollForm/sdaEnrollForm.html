@@ -1,0 +1,68 @@
+<template>
+  <section class="sda-enroll">
+    <div class="enroll-inner">
+      <div class="enroll-header">
+        <div class="section-eyebrow">Enroll Today</div>
+        <h2 class="enroll-title">Join a Class</h2>
+        <p class="enroll-subtitle">Fill in your details and choose a class to get started.</p>
+      </div>
+
+      <div class="enroll-card">
+        <template lwc:if={showForm}>
+          <div class="form-row">
+            <label>First Name *</label>
+            <input type="text" value={firstName} onchange={handleFirstName} class="form-input">
+          </div>
+          <div class="form-row">
+            <label>Last Name *</label>
+            <input type="text" value={lastName} onchange={handleLastName} class="form-input">
+          </div>
+          <div class="form-row">
+            <label>Email *</label>
+            <input type="email" value={email} onchange={handleEmail} class="form-input">
+          </div>
+          <div class="form-row">
+            <label>Phone</label>
+            <input type="tel" value={phone} onchange={handlePhone} class="form-input">
+          </div>
+          <div class="form-row">
+            <label>Choose a Class *</label>
+            <select onchange={handleClassChange} class="form-input">
+              <option value="">-- Select a class --</option>
+              <template for:each={classOptions} for:item="opt">
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              </template>
+            </select>
+          </div>
+
+          <template lwc:if={selectedClassFee}>
+            <div class="fee-summary">
+              <span>Class Fee</span>
+              <span class="fee-amount">${selectedClassFee}</span>
+            </div>
+          </template>
+
+          <div class="consent-row">
+            <input type="checkbox" id="gdpr" checked={gdprConsent} onchange={handleConsent}>
+            <label for="gdpr" class="consent-label">
+              I consent to Sai Dance Academy storing my details to process this enrollment. *
+            </label>
+          </div>
+
+          <template lwc:if={errorMessage}>
+            <div class="error-box">{errorMessage}</div>
+          </template>
+
+          <button class="enroll-btn" onclick={handleEnroll} disabled={isProcessing}>
+            <template lwc:if={isProcessing}>Processing…</template>
+            <template lwc:if={notProcessing}>Enroll & Pay</template>
+          </button>
+        </template>
+
+        <template lwc:if={isProcessing}>
+          <p class="redirect-note">Please wait — taking you to secure payment…</p>
+        </template>
+      </div>
+    </div>
+  </section>
+</template>

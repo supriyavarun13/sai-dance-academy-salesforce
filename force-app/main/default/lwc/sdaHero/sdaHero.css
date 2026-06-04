@@ -1,0 +1,99 @@
+.sda-hero {
+  background: linear-gradient(135deg, #fff9f0 0%, #ffffff 50%, #fff0f6 100%);
+  padding: 60px 32px 80px;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.hero-badge {
+  display: inline-block;
+  background: #fef3e2;
+  color: #c2660a;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  color: #111827;
+}
+.hero-title-accent {
+  display: block;
+  color: #ea6c00;
+}
+.hero-subtitle {
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 480px;
+}
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: #ea6c00;
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: #c95c00; color: #ffffff; text-decoration: none; }
+.btn-outline {
+  background: transparent;
+  color: #ea6c00;
+  padding: 12px 28px;
+  border-radius: 14px;
+  font-size: 15px;
+  border: 1px solid #f5a862;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-outline:hover { background: #fff4eb; text-decoration: none; }
+.hero-right { position: relative; }
+.hero-image-wrap {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 28px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+.hero-image-placeholder {
+  background: linear-gradient(135deg, #f5a862, #e91e8c);
+  border-radius: 20px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.placeholder-text { color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+.hero-float-badge {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.float-num { font-size: 28px; font-weight: 500; color: #ea6c00; }
+.float-label { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-title { font-size: 32px; }
+}
