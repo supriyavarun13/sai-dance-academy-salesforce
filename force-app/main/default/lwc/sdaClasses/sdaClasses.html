@@ -13,7 +13,8 @@
       <template lwc:if={classes.data}>
         <div class="classes-grid">
           <template for:each={classList} for:item="cls">
-            <div key={cls.Id} class="class-card">
+            <div key={cls.Id} class={cls.cardClass}
+                 data-id={cls.Id} onclick={handleCardClick}>
               <div class={cls.colorClass}>
                 <span class="card-style-label">{cls.Style__c}</span>
               </div>
@@ -25,7 +26,8 @@
                 </p>
                 <div class="class-card-footer">
                   <span class="class-fee">${cls.Fee__c}</span>
-                  <a href="/sda/enroll" class="class-enroll-link">Enroll →</a>
+                  <a href="/sda/enroll" class="class-enroll-link"
+                     onclick={stopProp}>Enroll →</a>
                 </div>
               </div>
             </div>
@@ -38,4 +40,58 @@
       </template>
     </div>
   </section>
+
+  <!-- Detail modal (only opens when enableDetails is true) -->
+  <template lwc:if={showModal}>
+    <div class="sda-modal-backdrop" onclick={closeModal}>
+      <div class="sda-modal" onclick={stopProp}>
+        <button class="sda-modal-close" onclick={closeModal}>×</button>
+
+        <div class="sda-modal-header">
+          <span class="sda-modal-style">{selectedClass.Style__c}</span>
+          <h2 class="sda-modal-title">{selectedClass.Name}</h2>
+        </div>
+
+        <div class="sda-modal-body">
+          <div class="sda-detail-grid">
+            <div class="sda-detail">
+              <span class="sda-detail-label">Instructor</span>
+              <span class="sda-detail-value">{selectedClass.Instructor__c}</span>
+            </div>
+            <div class="sda-detail">
+              <span class="sda-detail-label">Day</span>
+              <span class="sda-detail-value">{selectedClass.Day_of_Week__c}</span>
+            </div>
+            <div class="sda-detail">
+              <span class="sda-detail-label">Start Time</span>
+              <span class="sda-detail-value">{selectedClass.startTimeDisplay}</span>
+            </div>
+            <div class="sda-detail">
+              <span class="sda-detail-label">Duration</span>
+              <span class="sda-detail-value">{selectedClass.Duration_Mins__c} mins</span>
+            </div>
+            <div class="sda-detail">
+              <span class="sda-detail-label">Age Group</span>
+              <span class="sda-detail-value">{selectedClass.Age_Group__c}</span>
+            </div>
+            <div class="sda-detail">
+              <span class="sda-detail-label">Class Size</span>
+              <span class="sda-detail-value">Up to {selectedClass.Max_Capacity__c}</span>
+            </div>
+          </div>
+
+          <p class="sda-modal-desc">
+            Structured classes focused on rhythm, expression, technique,
+            and stage confidence. Suitable for {selectedClass.Age_Group__c} learners,
+            led by {selectedClass.Instructor__c}.
+          </p>
+
+          <div class="sda-modal-footer">
+            <span class="sda-modal-fee">${selectedClass.Fee__c}</span>
+            <a href="/sda/enroll" class="sda-modal-enroll">Enroll in this class →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
 </template>

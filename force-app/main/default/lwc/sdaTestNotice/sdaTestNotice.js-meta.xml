@@ -8,9 +8,9 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
-            <property name="enableDetails" type="Boolean" default="false"
-                      label="Enable class detail popup"
-                      description="When checked, clicking a class card opens a detail modal. Leave unchecked on the homepage."/>
+            <property name="showCardInfo" type="Boolean" default="false"
+                      label="Show test card info"
+                      description="Check this on pages with payment (enroll, events) to show the Stripe test card number."/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

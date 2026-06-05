@@ -1,0 +1,19 @@
+<template>
+  <div class="sda-notice">
+    <div class="sda-notice-icon">⚠️</div>
+    <div class="sda-notice-content">
+      <p class="sda-notice-title">Demo site — please use test data only</p>
+      <p class="sda-notice-text">
+        This is a portfolio demonstration site. Do not enter real personal
+        or payment information.
+        <template lwc:if={showCardInfo}>
+          For payments, use the Stripe test card
+          <strong>4242 4242 4242 4242</strong>, any future expiry, any CVC.
+        </template>
+        Use a real email address only if you'd like to receive the
+        confirmation email. All data is stored in a Salesforce Developer
+        org and is cleared periodically by the administrator.
+      </p>
+    </div>
+  </div>
+</template>
