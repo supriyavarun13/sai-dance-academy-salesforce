@@ -15,15 +15,21 @@
           <template for:each={classList} for:item="cls">
             <div key={cls.Id} class={cls.cardClass}
                  data-id={cls.Id} onclick={handleCardClick}>
-              <div class={cls.colorClass}>
-                <span class="card-style-label">{cls.Style__c}</span>
-              </div>
+              <template lwc:if={cls.hasImage}>
+  <div class="class-card-img class-card-photo">
+    <img src={cls.imageUrl} alt={cls.Name} class="card-photo-img" />
+    <span class="card-style-label card-style-label-overlay">{cls.Style__c}</span>
+  </div>
+</template>
+<template lwc:else>
+  <div class={cls.colorClass}>
+    <span class="card-style-label">{cls.Style__c}</span>
+  </div>
+</template>
               <div class="class-card-body">
                 <h3 class="class-card-title">{cls.Name}</h3>
                 <p class="class-card-meta">{cls.Day_of_Week__c} · {cls.Age_Group__c}</p>
-                <p class="class-card-desc">
-                  Structured classes focused on rhythm, expression, and stage confidence.
-                </p>
+                <p class="class-card-desc">{cls.Description__c}</p>
                 <div class="class-card-footer">
                   <span class="class-fee">${cls.Fee__c}</span>
                   <a href="/sda/enroll" class="class-enroll-link"
@@ -80,11 +86,7 @@
             </div>
           </div>
 
-          <p class="sda-modal-desc">
-            Structured classes focused on rhythm, expression, technique,
-            and stage confidence. Suitable for {selectedClass.Age_Group__c} learners,
-            led by {selectedClass.Instructor__c}.
-          </p>
+          <p class="sda-modal-desc">{selectedClass.Description__c}</p>
 
           <div class="sda-modal-footer">
             <span class="sda-modal-fee">${selectedClass.Fee__c}</span>

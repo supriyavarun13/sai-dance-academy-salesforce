@@ -2,6 +2,17 @@ import { LightningElement, api, wire } from 'lwc';
 import getActiveClasses from '@salesforce/apex/ClassController.getActiveClasses';
 
 const COLORS = ['c1', 'c2', 'c3', 'c4'];
+const RESOURCE_BASE = '/sfsites/c/resource/';
+
+const IMAGE_NAMES = {
+    'Bharatanatyam Beginners': 'gallery_bharatanatyam',
+    'Bollywood Intermediate':  'gallery_bollywood_teens',
+    'Bollywood Kids':          'gallery_bollywood_kids',
+    'Contemporary Adults':     'gallery_contemporary',
+    'Wednesday Rhythms':       'gallery_rhythm',
+    'Folk Dance All Ages':     'home_students',
+    'Kathak Advanced':         'gallery_kathak'
+};
 
 export default class SdaClasses extends LightningElement {
     @api enableDetails = false;
@@ -14,35 +25,31 @@ export default class SdaClasses extends LightningElement {
 
     get classList() {
         if (!this.classes.data) return [];
-        return this.classes.data.map((cls, index) => ({
-            ...cls,
-            colorClass: 'class-card-img ' + COLORS[index % COLORS.length],
-            cardClass: this.enableDetails ? 'class-card clickable' : 'class-card',
-            startTimeDisplay: this.formatTime(cls.Start_Time__c)
-        }));
+        return this.classes.data.map((cls, index) => {
+            const name = IMAGE_NAMES[cls.Name];
+            return {
+                ...cls,
+                colorClass: 'class-card-img ' + COLORS[index % COLORS.length],
+                cardClass: this.enableDetails ? 'class-card clickable' : 'class-card',
+                startTimeDisplay: this.formatTime(cls.Start_Time__c),
+                imageUrl: name ? RESOURCE_BASE + name : null,
+                hasImage: !!name
+            };
+        });
     }
 
-    // Salesforce Time fields arrive as milliseconds-since-midnight (a number)
-    // or sometimes a string like "10:00:00.000Z". Handle both.
     formatTime(raw) {
         if (raw === null || raw === undefined) return '';
-
         let totalMs;
         if (typeof raw === 'number') {
             totalMs = raw;
         } else {
-            // string form e.g. "10:00:00.000Z" -> parse HH and MM
             const match = String(raw).match(/(\d{1,2}):(\d{2})/);
             if (!match) return String(raw);
-            const h = parseInt(match[1], 10);
-            const m = parseInt(match[2], 10);
-            return this.toAmPm(h, m);
+            return this.toAmPm(parseInt(match[1], 10), parseInt(match[2], 10));
         }
-
         const totalMinutes = Math.floor(totalMs / 60000);
-        const h = Math.floor(totalMinutes / 60);
-        const m = totalMinutes % 60;
-        return this.toAmPm(h, m);
+        return this.toAmPm(Math.floor(totalMinutes / 60), totalMinutes % 60);
     }
 
     toAmPm(h, m) {

@@ -47,4 +47,4 @@ public without sharing class RsvpController {
 
         return result;
     }
-}   
+}

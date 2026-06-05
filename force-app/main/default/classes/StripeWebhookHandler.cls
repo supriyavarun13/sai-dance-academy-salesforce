@@ -8,7 +8,7 @@ global without sharing class StripeWebhookHandler {
 
         try {
             String requestBody = req.requestBody != null
-                ? req.requestgitBody.toString() : '';
+                ? req.requestBody.toString() : '';
 
             if (String.isBlank(requestBody)) {
                 res.statusCode = 400;

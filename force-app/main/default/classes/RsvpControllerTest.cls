@@ -5,6 +5,7 @@ private class RsvpControllerTest {
         Event__c e = new Event__c(
             Name = 'Test Event',
             Event_Date__c = Date.today().addDays(20),
+            Event_Time__c = Time.newInstance(18, 0, 0, 0),
             Venue__c = 'Test Venue',
             Event_Type__c = 'Workshop',
             Ticket_Price__c = price,
@@ -20,8 +21,7 @@ private class RsvpControllerTest {
 
         Test.startTest();
         RsvpController.RsvpResult res = RsvpController.createRsvp(
-            'Free', 'Guest', 'free@test.com', 2, e.Id, e.Name, 0,
-            'https://x.com/success', 'https://x.com/cancel'
+            'Free', 'Guest', 'free@test.com', 2, e.Id, 0
         );
         Test.stopTest();
 
@@ -34,26 +34,16 @@ private class RsvpControllerTest {
     @isTest
     static void testPaidRsvp() {
         Event__c e = makeEvent(25);
-        Test.setMock(HttpCalloutMock.class, new StripeMock());
 
         Test.startTest();
         RsvpController.RsvpResult res = RsvpController.createRsvp(
-            'Paid', 'Guest', 'paid@test.com', 1, e.Id, e.Name, 25,
-            'https://x.com/success', 'https://x.com/cancel'
+            'Paid', 'Guest', 'paid@test.com', 1, e.Id, 25
         );
         Test.stopTest();
 
         System.assertEquals(true, res.isPaid, 'Should be paid');
         System.assertNotEquals(null, res.rsvpId, 'RSVP should be created');
-    }
-
-    // Mock for the Stripe callout
-    private class StripeMock implements HttpCalloutMock {
-        public HttpResponse respond(HttpRequest req) {
-            HttpResponse res = new HttpResponse();
-            res.setStatusCode(200);
-            res.setBody('{"id":"cs_test_123","url":"https://checkout.stripe.com/test"}');
-            return res;
-        }
+        RSVP__c r = [SELECT Status__c FROM RSVP__c WHERE Id = :res.rsvpId];
+        System.assertEquals('Pending Payment', r.Status__c, 'Paid RSVP should be Pending Payment');
     }
 }

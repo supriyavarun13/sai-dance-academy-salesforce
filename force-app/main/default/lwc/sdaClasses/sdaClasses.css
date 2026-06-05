@@ -86,3 +86,24 @@
   .sda-modal-header { padding: 24px 20px; }
   .sda-modal-body { padding: 20px; }
 }
+.class-card-photo {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+.card-photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-style-label-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  z-index: 2;
+  background: rgba(0,0,0,0.45);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
