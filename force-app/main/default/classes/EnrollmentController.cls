@@ -24,7 +24,31 @@ public without sharing class EnrollmentController {
                 return result;
             }
 
-            // 2. Find existing Contact by email, or create new
+            // 2. Capacity check — refuse if class is full (Confirmed >= Max Capacity)
+            List<Dance_Class__c> dcList = [
+                SELECT Id, Max_Capacity__c
+                FROM Dance_Class__c
+                WHERE Id = :classId LIMIT 1
+            ];
+            if (dcList.isEmpty()) {
+                result.errorMessage = 'Sorry, this class could not be found.';
+                return result;
+            }
+            Dance_Class__c dc = dcList[0];
+            if (dc.Max_Capacity__c != null) {
+                Integer confirmed = [
+                    SELECT COUNT()
+                    FROM Enrollment__c
+                    WHERE Dance_Class__c = :classId
+                    AND Status__c = 'Confirmed'
+                ];
+                if (confirmed >= dc.Max_Capacity__c) {
+                    result.errorMessage = 'Sorry, this class is full.';
+                    return result;
+                }
+            }
+
+            // 3. Find existing Contact by email, or create new
             Contact con;
             List<Contact> existing = [
                 SELECT Id FROM Contact WHERE Email = :email LIMIT 1
@@ -41,7 +65,7 @@ public without sharing class EnrollmentController {
                 insert con;
             }
 
-            // 3. Create the Enrollment record
+            // 4. Create the Enrollment record
             Enrollment__c enr = new Enrollment__c(
                 Contact__c         = con.Id,
                 Dance_Class__c     = classId,

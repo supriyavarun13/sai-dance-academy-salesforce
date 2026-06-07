@@ -23,7 +23,11 @@
 .class-card-meta { color: #ea6c00; font-size: 12px; margin-bottom: 8px; }
 .class-card-desc { color: #6b7280; font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
 .class-card-footer { display: flex; align-items: center; justify-content: space-between; }
-.class-fee { font-size: 18px; font-weight: 500; color: #111827; }
+.class-fee {
+  font-size: 18px;
+  font-weight: 700;
+  color:#ea6c00 !important;
+}
 .class-enroll-link { color: #ea6c00; font-size: 14px; font-weight: 500; text-decoration: none; }
 .error-msg { text-align: center; color: #9ca3af; }
 @media (max-width: 900px) { .classes-grid { grid-template-columns: 1fr 1fr; } }
@@ -75,7 +79,7 @@
   display: flex; align-items: center; justify-content: space-between;
   border-top: 1px solid #f3f4f6; padding-top: 20px;
 }
-.sda-modal-fee { font-size: 24px; font-weight: 500; color: #111827; }
+.sda-modal-fee { font-size: 24px; font-weight: 500; color: #ea6c00; }
 .sda-modal-enroll {
   background: #ea6c00; color: #fff; padding: 12px 22px; border-radius: 12px;
   text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.2s;
@@ -106,4 +110,22 @@
   background: rgba(0,0,0,0.45);
   padding: 4px 10px;
   border-radius: 8px;
+}
+.class-spots {
+  padding: 0 18px 14px;
+  font-size: 12px;
+  color: #ea6c00;
+}
+.class-full-label {
+  color: #b91c1c;
+  font-size: 14px;
+  font-weight: 600;
+}
+.sda-modal-full {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
 }

@@ -30,11 +30,17 @@
                 <h3 class="class-card-title">{cls.Name}</h3>
                 <p class="class-card-meta">{cls.Day_of_Week__c} · {cls.Age_Group__c}</p>
                 <p class="class-card-desc">{cls.Description__c}</p>
-                <div class="class-card-footer">
+               <div class="class-card-footer">
                   <span class="class-fee">${cls.Fee__c}</span>
-                  <a href="/sda/enroll" class="class-enroll-link"
-                     onclick={stopProp}>Enroll →</a>
+                  <template lwc:if={cls.isFull}>
+                    <span class="class-full-label">Class Full</span>
+                  </template>
+                  <template lwc:else>
+                    <a href="/sda/enroll" class="class-enroll-link"
+                       onclick={stopProp}>Enroll →</a>
+                  </template>
                 </div>
+                <div class="class-spots">{cls.spotsLabel}</div>
               </div>
             </div>
           </template>
@@ -88,9 +94,14 @@
 
           <p class="sda-modal-desc">{selectedClass.Description__c}</p>
 
-          <div class="sda-modal-footer">
+         <div class="sda-modal-footer">
             <span class="sda-modal-fee">${selectedClass.Fee__c}</span>
-            <a href="/sda/enroll" class="sda-modal-enroll">Enroll in this class →</a>
+            <template lwc:if={selectedClass.isFull}>
+              <span class="sda-modal-full">Class Full</span>
+            </template>
+            <template lwc:else>
+              <a href="/sda/enroll" class="sda-modal-enroll">Enroll in this class →</a>
+            </template>
           </div>
         </div>
       </div>
