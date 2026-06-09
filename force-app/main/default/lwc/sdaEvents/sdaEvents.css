@@ -30,7 +30,7 @@
 .event-meta { color: #ea6c00; font-size: 13px; margin-bottom: 8px; }
 .event-desc { color: #6b7280; font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
 .event-footer { display: flex; align-items: center; justify-content: space-between; }
-.event-price { font-size: 16px; font-weight: 500; color: #111827; }
+.event-price { font-size: 16px; font-weight: 500; color:  #c95c00; }
 .event-rsvp { background: none; border: none; color: #ea6c00; font-size: 14px; font-weight: 500; cursor: pointer; padding: 0; }
 .error-msg, .empty-msg { text-align: center; color: #9ca3af; }
 

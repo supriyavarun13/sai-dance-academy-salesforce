@@ -1,0 +1,48 @@
+<template>
+  <div class="trial-wrap">
+    <template lwc:if={submitted}>
+      <div class="trial-success">
+        <h2>Thank you! 🎉</h2>
+        <p>Your trial request has been received. Our team will reach out shortly to arrange your trial class.</p>
+      </div>
+    </template>
+
+    <template lwc:else>
+      <div class="trial-card">
+        <div class="trial-eyebrow">Try Before You Join</div>
+        <h2 class="trial-title">Book a Trial Class</h2>
+        <p class="trial-sub">Tell us a little about yourself and which class you'd like to try. We'll be in touch to arrange it.</p>
+
+        <div class="trial-row">
+          <input type="text" placeholder="First name" data-field="firstName"
+                 value={firstName} onchange={handleChange} class="trial-input" />
+          <input type="text" placeholder="Last name" data-field="lastName"
+                 value={lastName} onchange={handleChange} class="trial-input" />
+        </div>
+        <input type="email" placeholder="Email address" data-field="email"
+               value={email} onchange={handleChange} class="trial-input" />
+        <input type="tel" placeholder="Phone (optional)" data-field="phone"
+               value={phone} onchange={handleChange} class="trial-input" />
+
+        <select data-field="classInterest" onchange={handleChange} class="trial-input">
+          <option value="">Which class would you like to try?</option>
+          <template for:each={classOptions} for:item="opt">
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          </template>
+        </select>
+
+        <input type="text" placeholder="Preferred day/time (optional)" data-field="preferredTiming"
+               value={preferredTiming} onchange={handleChange} class="trial-input" />
+
+        <template lwc:if={errorMessage}>
+          <p class="trial-error">{errorMessage}</p>
+        </template>
+
+        <button class="trial-btn" onclick={handleSubmit} disabled={isSubmitting}>
+          <template lwc:if={isSubmitting}>Submitting…</template>
+          <template lwc:else>Request My Trial Class</template>
+        </button>
+      </div>
+    </template>
+  </div>
+</template>
